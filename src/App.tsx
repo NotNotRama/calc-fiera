@@ -25,7 +25,7 @@ function App() {
 
     //combine previous - with the new number
     //return is a must so the other conditionals don't run
-    if (operation.operator === '-') {
+    if (operation.operator === '-' && !operation.input && !operation.prevNum) {
       console.log(operation.operator + num);
       setOperation((prevState) => ({
         input: prevState.operator + num,
@@ -75,6 +75,7 @@ function App() {
         ...prevState,
         input: '-',
       }));
+      return;
     }
 
     //prevent consecutives operators if there's no input
