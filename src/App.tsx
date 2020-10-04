@@ -23,6 +23,18 @@ function App() {
     //avoid 0 as the first digit but not if there's already an input
     if (num === '0' && !operation.input) return;
 
+    //combine previous - with the new number
+    //return is a must so the other conditionals don't run
+    if (operation.operator === '-') {
+      console.log(operation.operator + num);
+      setOperation((prevState) => ({
+        input: prevState.operator + num,
+        prevNum: null,
+        operator: null,
+      }));
+      return;
+    }
+
     //if there's already an input, add digit to said input
     if (operation.input) {
       setOperation((prevState) => ({
@@ -57,6 +69,14 @@ function App() {
   }
 
   function addOperation(userInput: string) {
+    //first input is -
+    if (operation.input === '-') {
+      setOperation((prevState) => ({
+        ...prevState,
+        input: '-',
+      }));
+    }
+
     //prevent consecutives operators if there's no input
     if (operation.operator && !operation.input) return;
 
