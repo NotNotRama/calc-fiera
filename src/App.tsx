@@ -22,11 +22,11 @@ function App() {
   function addNum(num: string) {
     if (num === '0' && !operation.input) return;
 
-    if (!operation.input && !operation.operator) {
+    if (operation.input) {
       setOperation((prevState) => ({
-        input: num,
-        prevNum: null,
-        operator: null,
+        input: prevState.input + num,
+        prevNum: prevState.prevNum,
+        operator: prevState.operator,
       }));
       return;
     }
@@ -40,11 +40,11 @@ function App() {
       return;
     }
 
-    if (operation.input) {
+    if (!operation.input && !operation.operator) {
       setOperation((prevState) => ({
-        input: prevState.input + num,
+        input: num,
         prevNum: null,
-        operator: prevState.operator,
+        operator: null,
       }));
       return;
     }
