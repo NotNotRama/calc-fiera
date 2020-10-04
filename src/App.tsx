@@ -20,8 +20,10 @@ function App() {
   const [operation, setOperation] = useState<State>(initialState);
 
   function addNum(num: string) {
+    //avoid 0 as the first digit but not if there's already an input
     if (num === '0' && !operation.input) return;
 
+    //if there's already an input, add digit to said input
     if (operation.input) {
       setOperation((prevState) => ({
         input: prevState.input + num,
@@ -31,6 +33,9 @@ function App() {
       return;
     }
 
+    //no operation input but operator, add digit to the input
+    //this is used after an operator has already been asigned
+    //and there's already a previous number
     if (!operation.input && operation.operator) {
       setOperation((prevState) => ({
         input: num,
@@ -40,6 +45,7 @@ function App() {
       return;
     }
 
+    //if there's no input nor operator, add the first input
     if (!operation.input && !operation.operator) {
       setOperation((prevState) => ({
         input: num,
@@ -51,6 +57,11 @@ function App() {
   }
 
   function addOperation(userInput: string) {
+    //prevent consecutives operators if there's no input
+    if (operation.operator && !operation.input) return;
+
+    //asign the previous input to the prevNum, clear the input and set
+    //the operator
     if (!operation.prevNum) {
       setOperation((prevState) => ({
         input: null,
@@ -60,6 +71,8 @@ function App() {
       return;
     }
 
+    //if there's a previous number, assign the result of the calculation
+    //to the previous number, clear the input and set a new operator
     if (operation.prevNum !== null) {
       setOperation(({ operator, input, prevNum }) => ({
         input: null,
