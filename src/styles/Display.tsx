@@ -6,7 +6,7 @@ const Display = styled.div`
   width: 100%;
   grid-column: 1 / -1;
   grid-row: 1 / 2;
-  background-color: green;
+  background-color: black;
 `;
 
 export default Display;

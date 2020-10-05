@@ -6,7 +6,8 @@ const Zero = styled.button`
   width: 100%;
   grid-column: 1 / 3;
   grid-row: 7 / 8;
-  background-color: green;
+  border: 1px solid black;
+  background-color: #e6e1dc;
 `;
 
 export default Zero;
