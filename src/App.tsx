@@ -14,6 +14,12 @@ function App() {
     if (operator === '+') {
       return Number(prevNum) + Number(input);
     }
+    if (operator === '/') {
+      return Number(prevNum) / Number(input);
+    }
+    if (operator === '*') {
+      return Number(prevNum) * Number(input);
+    }
   }
 
   const initialState = { input: null, prevNum: null, operator: null };
@@ -158,9 +164,17 @@ function App() {
       <div></div>
       <button onClick={() => addNum('0')}>0</button>
       <button onClick={() => addNum('1')}>1</button>
-      <button onClick={() => addNum('2')}>2</button>
+      <button onClick={() => addNum('3')}>3</button>
+      <button onClick={() => addNum('4')}>4</button>
+      <button onClick={() => addNum('5')}>5</button>
+      <button onClick={() => addNum('6')}>6</button>
+      <button onClick={() => addNum('7')}>7</button>
+      <button onClick={() => addNum('8')}>8</button>
+      <button onClick={() => addNum('9')}>9</button>
       <button onClick={() => addOperation('+')}>+</button>
       <button onClick={() => addOperation('-')}>-</button>
+      <button onClick={() => addOperation('*')}>*</button>
+      <button onClick={() => addOperation('/')}>/</button>
       <button onClick={printResult}>=</button>
       <button onClick={() => addDot('.')}>.</button>
       <button onClick={reset}>AC</button>
