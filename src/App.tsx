@@ -7,7 +7,9 @@ function App() {
     operator: null | string;
   }
 
-  function calculate(operator: string | null, input: string | number | null, prevNum: string | number | null) {
+  type test = string | number | null;
+
+  function calculate(operator: string | null, input: test, prevNum: test) {
     if (operator === '-') {
       return Number(prevNum) - Number(input);
     }
@@ -164,6 +166,7 @@ function App() {
       <div></div>
       <button onClick={() => addNum('0')}>0</button>
       <button onClick={() => addNum('1')}>1</button>
+      <button onClick={() => addNum('2')}>2</button>
       <button onClick={() => addNum('3')}>3</button>
       <button onClick={() => addNum('4')}>4</button>
       <button onClick={() => addNum('5')}>5</button>
