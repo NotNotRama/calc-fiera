@@ -13,6 +13,7 @@ const Operators = styled.div`
     margin-top: 2px;
     width: 10rem;
     height: 8.5rem;
+    font-size: 4rem;
     background-color: #ff8c20;
   }
 `;

@@ -2,13 +2,13 @@ import styled from '@xstyled/styled-components';
 
 const AC = styled.button`
   position: relative;
-  display: flex;
   width: 100%;
-  border: 1px solid black;
+  height: 8.3rem;
+  margin-top: 0.2rem;
   grid-column: 1 / 4;
   grid-row: 3 / 4;
-  background-color: fuchsia;
-  background-color: #e6e1dc;
+  font-size: 4rem;
+  align-content: center;
 `;
 
 export default AC;

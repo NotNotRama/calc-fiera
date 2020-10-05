@@ -14,6 +14,7 @@ const Numbers = styled.div`
     width: 10rem;
     height: 8.4rem;
     background-color: #e6e1dc;
+    font-size: 3rem;
   }
 `;
 
