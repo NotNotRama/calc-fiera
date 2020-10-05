@@ -11,16 +11,16 @@ function App() {
 
   function calculate(operator: string | null, input: test, prevNum: test) {
     if (operator === '-') {
-      return Number(prevNum) - Number(input);
+      return (Number(prevNum) - Number(input)).toString();
     }
     if (operator === '+') {
-      return Number(prevNum) + Number(input);
+      return (Number(prevNum) + Number(input)).toString();
     }
     if (operator === '/') {
-      return Number(prevNum) / Number(input);
+      return (Number(prevNum) / Number(input)).toString();
     }
     if (operator === '*') {
-      return Number(prevNum) * Number(input);
+      return (Number(prevNum) * Number(input)).toString();
     }
   }
 
@@ -89,15 +89,15 @@ function App() {
     //reset result display after adding another number to the operation
     setResult('');
 
-    //first input is -
-    // if (operation.input === '-') {
-    //   setOperation((prevState) => ({
-    //     ...prevState,
-    //     input: '-',
-    //   }));
-    //   setDisplay('-');
-    //   return;
-    // }
+    //add operations with negative numbers
+    //for example: 9+-9
+    if (!operation.input && operation.prevNum && operation.operator && userInput === '-') {
+      setOperation((prevState) => ({
+        ...prevState,
+        input: '-',
+      }));
+      return;
+    }
 
     //prevent consecutives operators if there's no input
     if (operation.operator && !operation.input) return;
@@ -119,10 +119,10 @@ function App() {
 
     //if there's a previous number, assign the result of the calculation
     //to the previous number, clear the input and set a new operator
-    if (operation.prevNum !== null) {
+    if (operation.prevNum !== null && operation.input !== '-') {
       setOperation(({ operator, input, prevNum }) => ({
         input: null,
-        prevNum: calculate(operator, input, prevNum!.toString())!.toString(),
+        prevNum: calculate(operator, input, prevNum)!,
         operator: userInput,
       }));
       setDisplay(userInput);
@@ -152,12 +152,12 @@ function App() {
   function printResult() {
     if (!result && operation.input && operation.prevNum && operation.operator) {
       setOperation(({ operator, input, prevNum }) => ({
-        input: calculate(operator, input, prevNum)!.toString(),
+        input: calculate(operator, input, prevNum)!,
         prevNum: null,
         operator: null,
       }));
 
-      setResult(calculate(operation.operator, operation.input, operation.prevNum)!.toString());
+      setResult(calculate(operation.operator, operation.input, operation.prevNum)!);
     }
   }
 
