@@ -81,9 +81,12 @@ function App() {
     //prevent consecutives operators if there's no input
     if (operation.operator && !operation.input) return;
 
-    //asign the previous input to the prevNum, clear the input and set
-    //the operator
-    if (!operation.prevNum) {
+    const inputStr = operation.input?.split('');
+    //check if the last digit of the input is a dot
+    const checkDot = inputStr && inputStr[inputStr.length - 1] === '.';
+
+    //assign the previous input to the prevNum, clear the input and set the operator
+    if (!operation.prevNum && !checkDot) {
       setOperation((prevState) => ({
         input: null,
         prevNum: prevState.input,
@@ -108,9 +111,12 @@ function App() {
     setOperation(initialState);
   }
   function addDot(dot: string) {
+    //prevent user from using dot if there's
     if (operation.input === null) return;
 
-    if (typeof operation.input === 'string') {
+    //first check if there's an input
+    //if there's, make sure said string doesn't include a dot
+    if (typeof operation.input === 'string' && !operation.input.split('').includes('.')) {
       setOperation((prevState) => ({
         ...prevState,
         input: prevState.input + dot,
