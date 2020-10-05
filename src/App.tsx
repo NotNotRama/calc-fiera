@@ -150,15 +150,15 @@ function App() {
   }
 
   function printResult() {
-    if (!result && operation.input && operation.prevNum) {
+    if (!result && operation.input && operation.prevNum && operation.operator) {
       setOperation(({ operator, input, prevNum }) => ({
         input: calculate(operator, input, prevNum)!.toString(),
         prevNum: null,
         operator: null,
       }));
-    }
 
-    setResult(calculate(operation.operator, operation.input, operation.prevNum)!.toString());
+      setResult(calculate(operation.operator, operation.input, operation.prevNum)!.toString());
+    }
   }
 
   return (
