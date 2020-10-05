@@ -7,7 +7,7 @@ function App() {
     operator: null | string;
   }
 
-  function calculate(operator: string | null, input: string | number | null, prevNum: string) {
+  function calculate(operator: string | null, input: string | number | null, prevNum: string | number | null) {
     if (operator === '-') {
       return Number(prevNum) - Number(input);
     }
@@ -18,8 +18,13 @@ function App() {
 
   const initialState = { input: null, prevNum: null, operator: null };
   const [operation, setOperation] = useState<State>(initialState);
+  const [display, setDisplay] = useState<string>('');
+  const [result, setResult] = useState<number | string>('');
 
   function addNum(num: string) {
+    //reset result display after adding another number to the operation
+    setResult('');
+
     //avoid 0 as the first digit but not if there's already an input
     if (num === '0' && !operation.input) return;
 
@@ -32,6 +37,7 @@ function App() {
         prevNum: null,
         operator: null,
       }));
+      setDisplay(operation.operator + num);
       return;
     }
 
@@ -42,6 +48,7 @@ function App() {
         prevNum: prevState.prevNum,
         operator: prevState.operator,
       }));
+      setDisplay(operation.input + num);
       return;
     }
 
@@ -54,6 +61,7 @@ function App() {
         prevNum: prevState.prevNum,
         operator: prevState.operator,
       }));
+      setDisplay(num);
       return;
     }
 
@@ -64,19 +72,24 @@ function App() {
         prevNum: null,
         operator: null,
       }));
+      setDisplay(num);
       return;
     }
   }
 
   function addOperation(userInput: string) {
+    //reset result display after adding another number to the operation
+    setResult('');
+
     //first input is -
-    if (operation.input === '-') {
-      setOperation((prevState) => ({
-        ...prevState,
-        input: '-',
-      }));
-      return;
-    }
+    // if (operation.input === '-') {
+    //   setOperation((prevState) => ({
+    //     ...prevState,
+    //     input: '-',
+    //   }));
+    //   setDisplay('-');
+    //   return;
+    // }
 
     //prevent consecutives operators if there's no input
     if (operation.operator && !operation.input) return;
@@ -92,6 +105,7 @@ function App() {
         prevNum: prevState.input,
         operator: userInput,
       }));
+      setDisplay(userInput);
       return;
     }
 
@@ -103,12 +117,15 @@ function App() {
         prevNum: calculate(operator, input, prevNum!.toString())!.toString(),
         operator: userInput,
       }));
+      setDisplay(userInput);
       return;
     }
   }
 
   function reset() {
     setOperation(initialState);
+    setDisplay('');
+    setResult('');
   }
   function addDot(dot: string) {
     //prevent user from using dot if there's
@@ -124,6 +141,18 @@ function App() {
     }
   }
 
+  function printResult() {
+    if (!result && operation.input && operation.prevNum) {
+      setOperation(({ operator, input, prevNum }) => ({
+        input: calculate(operator, input, prevNum)!.toString(),
+        prevNum: null,
+        operator: null,
+      }));
+    }
+
+    setResult(calculate(operation.operator, operation.input, operation.prevNum)!.toString());
+  }
+
   return (
     <div>
       <div></div>
@@ -132,8 +161,11 @@ function App() {
       <button onClick={() => addNum('2')}>2</button>
       <button onClick={() => addOperation('+')}>+</button>
       <button onClick={() => addOperation('-')}>-</button>
+      <button onClick={printResult}>=</button>
       <button onClick={() => addDot('.')}>.</button>
       <button onClick={reset}>AC</button>
+      <div>{display}</div>
+      <div>{result}</div>
     </div>
   );
 }
