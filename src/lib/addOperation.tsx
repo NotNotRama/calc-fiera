@@ -1,6 +1,13 @@
 import State from '../types/State';
 
-export default function addOperation(userInput: string, operation: State, setOperation: Function, setDisplay: Function, setResult: Function, calculate: Function) {
+export default function addOperation(
+  userInput: string,
+  operation: State,
+  setOperation: Function,
+  setDisplay: Function,
+  setResult: Function,
+  calculate: Function
+) {
   //reset result display after adding another number to the operation
   setResult('');
 
