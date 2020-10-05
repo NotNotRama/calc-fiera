@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import calculate from './lib/calculate';
+import addNum from './lib/addNum';
 
 function App() {
   interface State {
@@ -7,83 +9,10 @@ function App() {
     operator: null | string;
   }
 
-  type test = string | number | null;
-
-  function calculate(operator: string | null, input: test, prevNum: test) {
-    if (operator === '-') {
-      return (Number(prevNum) - Number(input)).toString();
-    }
-    if (operator === '+') {
-      return (Number(prevNum) + Number(input)).toString();
-    }
-    if (operator === '/') {
-      return (Number(prevNum) / Number(input)).toString();
-    }
-    if (operator === '*') {
-      return (Number(prevNum) * Number(input)).toString();
-    }
-  }
-
   const initialState = { input: null, prevNum: null, operator: null };
   const [operation, setOperation] = useState<State>(initialState);
   const [display, setDisplay] = useState<string>('');
-  const [result, setResult] = useState<number | string>('');
-
-  function addNum(num: string) {
-    //reset result display after adding another number to the operation
-    setResult('');
-
-    //avoid 0 as the first digit but not if there's already an input
-    if (num === '0' && !operation.input) return;
-
-    //combine previous - with the new number
-    //return is a must so the other conditionals don't run
-    if (operation.operator === '-' && !operation.input && !operation.prevNum) {
-      console.log(operation.operator + num);
-      setOperation((prevState) => ({
-        input: prevState.operator + num,
-        prevNum: null,
-        operator: null,
-      }));
-      setDisplay(operation.operator + num);
-      return;
-    }
-
-    //if there's already an input, add digit to said input
-    if (operation.input) {
-      setOperation((prevState) => ({
-        input: prevState.input + num,
-        prevNum: prevState.prevNum,
-        operator: prevState.operator,
-      }));
-      setDisplay(operation.input + num);
-      return;
-    }
-
-    //no operation input but operator, add digit to the input
-    //this is used after an operator has already been asigned
-    //and there's already a previous number
-    if (!operation.input && operation.operator) {
-      setOperation((prevState) => ({
-        input: num,
-        prevNum: prevState.prevNum,
-        operator: prevState.operator,
-      }));
-      setDisplay(num);
-      return;
-    }
-
-    //if there's no input nor operator, add the first input
-    if (!operation.input && !operation.operator) {
-      setOperation((prevState) => ({
-        input: num,
-        prevNum: null,
-        operator: null,
-      }));
-      setDisplay(num);
-      return;
-    }
-  }
+  const [result, setResult] = useState<string>('');
 
   function addOperation(userInput: string) {
     //reset result display after adding another number to the operation
@@ -139,9 +68,11 @@ function App() {
     //prevent user from using dot if there's
     if (operation.input === null) return;
 
+    const includesDot = operation.input.split('').includes('.');
+
     //first check if there's an input
     //if there's, make sure said string doesn't include a dot
-    if (typeof operation.input === 'string' && !operation.input.split('').includes('.')) {
+    if (typeof operation.input === 'string' && !includesDot) {
       setOperation((prevState) => ({
         ...prevState,
         input: prevState.input + dot,
@@ -164,16 +95,16 @@ function App() {
   return (
     <div>
       <div></div>
-      <button onClick={() => addNum('0')}>0</button>
-      <button onClick={() => addNum('1')}>1</button>
-      <button onClick={() => addNum('2')}>2</button>
-      <button onClick={() => addNum('3')}>3</button>
-      <button onClick={() => addNum('4')}>4</button>
-      <button onClick={() => addNum('5')}>5</button>
-      <button onClick={() => addNum('6')}>6</button>
-      <button onClick={() => addNum('7')}>7</button>
-      <button onClick={() => addNum('8')}>8</button>
-      <button onClick={() => addNum('9')}>9</button>
+      <button onClick={() => addNum('0', operation, setOperation, setDisplay, setResult)}>0</button>
+      <button onClick={() => addNum('1', operation, setOperation, setDisplay, setResult)}>1</button>
+      <button onClick={() => addNum('2', operation, setOperation, setDisplay, setResult)}>2</button>
+      <button onClick={() => addNum('3', operation, setOperation, setDisplay, setResult)}>3</button>
+      <button onClick={() => addNum('4', operation, setOperation, setDisplay, setResult)}>4</button>
+      <button onClick={() => addNum('5', operation, setOperation, setDisplay, setResult)}>5</button>
+      <button onClick={() => addNum('6', operation, setOperation, setDisplay, setResult)}>6</button>
+      <button onClick={() => addNum('7', operation, setOperation, setDisplay, setResult)}>7</button>
+      <button onClick={() => addNum('8', operation, setOperation, setDisplay, setResult)}>8</button>
+      <button onClick={() => addNum('9', operation, setOperation, setDisplay, setResult)}>9</button>
       <button onClick={() => addOperation('+')}>+</button>
       <button onClick={() => addOperation('-')}>-</button>
       <button onClick={() => addOperation('*')}>*</button>
