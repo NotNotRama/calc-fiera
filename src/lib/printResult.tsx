@@ -1,4 +1,6 @@
-export default function printResult(result: any, operation: any, setOperation: any, setResult: any, calculate: any) {
+import State from '../types/State';
+
+export default function printResult(result: string, operation: State, setOperation: Function, setResult: Function, calculate: Function) {
   if (!result && operation.input && operation.prevNum && operation.operator) {
     setOperation(({ operator, input, prevNum }: any) => ({
       input: calculate(operator, input, prevNum)!,

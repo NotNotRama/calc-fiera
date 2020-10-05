@@ -1,4 +1,6 @@
-export default function addNum(num: string, operation: any, setOperation: any, setDisplay: any, setResult: any) {
+import State from '../types/State';
+
+export default function addNum(num: string, operation: State, setOperation: Function, setDisplay: Function, setResult: Function) {
   //reset result display after adding another number to the operation
   setResult('');
 

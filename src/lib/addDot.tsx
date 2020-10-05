@@ -1,4 +1,6 @@
-export default function addDot(dot: string, operation: any, setOperation: any) {
+import State from '../types/State';
+
+export default function addDot(dot: string, operation: State, setOperation: Function) {
   //prevent user from using dot if there's
   if (operation.input === null) return;
 
