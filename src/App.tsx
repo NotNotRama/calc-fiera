@@ -107,6 +107,16 @@ function App() {
   function reset() {
     setOperation(initialState);
   }
+  function addDot(dot: string) {
+    if (operation.input === null) return;
+
+    if (typeof operation.input === 'string') {
+      setOperation((prevState) => ({
+        ...prevState,
+        input: prevState.input + dot,
+      }));
+    }
+  }
 
   return (
     <div>
@@ -116,6 +126,7 @@ function App() {
       <button onClick={() => addNum('2')}>2</button>
       <button onClick={() => addOperation('+')}>+</button>
       <button onClick={() => addOperation('-')}>-</button>
+      <button onClick={() => addDot('.')}>.</button>
       <button onClick={reset}>AC</button>
     </div>
   );
