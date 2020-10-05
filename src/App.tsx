@@ -7,12 +7,12 @@ function App() {
     operator: null | string;
   }
 
-  function calculate(operator: string | null, input: any, prevNum: any) {
+  function calculate(operator: string | null, input: string | number | null, prevNum: string) {
     if (operator === '-') {
-      return parseInt(prevNum) - parseInt(input);
+      return Number(prevNum) - Number(input);
     }
     if (operator === '+') {
-      return parseInt(prevNum) + parseInt(input);
+      return Number(prevNum) + Number(input);
     }
   }
 
