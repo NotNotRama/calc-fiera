@@ -1,5 +1,5 @@
 export default interface State {
   input: null | string;
-  prevNum: null | string | number;
+  prevNum: null | string;
   operator: null | string;
 }

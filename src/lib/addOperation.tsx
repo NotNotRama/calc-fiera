@@ -7,7 +7,7 @@ export default function addOperation(userInput: string, operation: State, setOpe
   //add operations with negative numbers
   //for example: 9+-9
   if (!operation.input && operation.prevNum && operation.operator && userInput === '-') {
-    setOperation((prevState: any) => ({
+    setOperation((prevState: State) => ({
       ...prevState,
       input: '-',
     }));
@@ -23,7 +23,7 @@ export default function addOperation(userInput: string, operation: State, setOpe
 
   //assign the previous input to the prevNum, clear the input and set the operator
   if (!operation.prevNum && !checkDot) {
-    setOperation((prevState: any) => ({
+    setOperation((prevState: State) => ({
       input: null,
       prevNum: prevState.input,
       operator: userInput,
@@ -35,7 +35,7 @@ export default function addOperation(userInput: string, operation: State, setOpe
   //if there's a previous number, assign the result of the calculation
   //to the previous number, clear the input and set a new operator
   if (operation.prevNum !== null && operation.input !== '-') {
-    setOperation(({ operator, input, prevNum }: any) => ({
+    setOperation(({ operator, input, prevNum }: State) => ({
       input: null,
       prevNum: calculate(operator, input, prevNum)!,
       operator: userInput,

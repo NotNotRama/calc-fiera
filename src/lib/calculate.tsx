@@ -1,6 +1,6 @@
-type numType = string | number | null;
+type paramTypes = string | number;
 
-export default function calculate(operator: string | null, input: numType, prevNum: numType) {
+export default function calculate(operator: paramTypes, input: paramTypes, prevNum: paramTypes) {
   if (operator === '-') {
     return (Number(prevNum) - Number(input)).toString();
   }

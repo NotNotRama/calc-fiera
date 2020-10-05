@@ -18,7 +18,6 @@ function App() {
 
   return (
     <div>
-      <div></div>
       {numArr.map((num) => (
         <button onClick={() => addNum(num, operation, setOperation, setDisplay, setResult)}>{num}</button>
       ))}

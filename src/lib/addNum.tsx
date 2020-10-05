@@ -11,7 +11,7 @@ export default function addNum(num: string, operation: State, setOperation: Func
   //return is a must so the other conditionals don't run
   if (operation.operator === '-' && !operation.input && !operation.prevNum) {
     console.log(operation.operator + num);
-    setOperation((prevState: any) => ({
+    setOperation((prevState: State) => ({
       input: prevState.operator + num,
       prevNum: null,
       operator: null,
@@ -22,7 +22,7 @@ export default function addNum(num: string, operation: State, setOperation: Func
 
   //if there's already an input, add digit to said input
   if (operation.input) {
-    setOperation((prevState: any) => ({
+    setOperation((prevState: State) => ({
       input: prevState.input + num,
       prevNum: prevState.prevNum,
       operator: prevState.operator,
@@ -35,7 +35,7 @@ export default function addNum(num: string, operation: State, setOperation: Func
   //this is used after an operator has already been asigned
   //and there's already a previous number
   if (!operation.input && operation.operator) {
-    setOperation((prevState: any) => ({
+    setOperation((prevState: State) => ({
       input: num,
       prevNum: prevState.prevNum,
       operator: prevState.operator,
