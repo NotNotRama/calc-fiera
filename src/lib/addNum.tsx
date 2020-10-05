@@ -6,7 +6,7 @@ export default function addNum(num: string, operation: State, setOperation: Func
   if (num === '0' && operation.input === '0') return;
 
   if (num !== '0' && operation.input === '0') {
-    setOperation((prevState: State) => ({
+    setOperation(() => ({
       input: num,
       prevNum: null,
       operator: null,
@@ -46,7 +46,7 @@ export default function addNum(num: string, operation: State, setOperation: Func
   }
 
   if (!operation.input && !operation.operator) {
-    setOperation((prevState: any) => ({
+    setOperation(() => ({
       input: num,
       prevNum: null,
       operator: null,
