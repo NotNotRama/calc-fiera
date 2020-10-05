@@ -7,6 +7,9 @@ import addDot from './lib/addDot';
 import reset from './lib/reset';
 import State from './types/State';
 
+import Container from './styles/Container';
+import Calculator from './styles/Calculator';
+
 function App() {
   const initialState = { input: null, prevNum: null, operator: null };
   const [operation, setOperation] = useState<State>(initialState);
@@ -17,19 +20,21 @@ function App() {
   const operatorsArr = ['+', '-', '*', '/'];
 
   return (
-    <div>
-      {numArr.map((num) => (
-        <button onClick={() => addNum(num, operation, setOperation, setDisplay, setResult)}>{num}</button>
-      ))}
-      {operatorsArr.map((operator) => (
-        <button onClick={() => addOperation(operator, operation, setOperation, setDisplay, setResult, calculate)}>{operator}</button>
-      ))}
-      <button onClick={() => printResult(result, operation, setOperation, setResult, calculate)}>=</button>
-      <button onClick={() => addDot('.', operation, setOperation)}>.</button>
-      <button onClick={() => reset(setOperation, setDisplay, setResult, initialState)}>AC</button>
-      <div>{display}</div>
-      <div>{result}</div>
-    </div>
+    <Container>
+      <Calculator>
+        {numArr.map((num) => (
+          <button onClick={() => addNum(num, operation, setOperation, setDisplay, setResult)}>{num}</button>
+        ))}
+        {operatorsArr.map((operator) => (
+          <button onClick={() => addOperation(operator, operation, setOperation, setDisplay, setResult, calculate)}>{operator}</button>
+        ))}
+        <button onClick={() => printResult(result, operation, setOperation, setResult, calculate)}>=</button>
+        <button onClick={() => addDot('.', operation, setOperation)}>.</button>
+        <button onClick={() => reset(setOperation, setDisplay, setResult, initialState)}>AC</button>
+        <div>{display}</div>
+        <div>{result}</div>
+      </Calculator>
+    </Container>
   );
 }
 
