@@ -36,7 +36,7 @@ function App() {
             <button onClick={() => addNum(num, operation, setOperation, setDisplay, setResult)}>{num}</button>
           ))}
         </Numbers>
-        <Zero onClick={() => addOperation('0', operation, setOperation, setDisplay, setResult, calculate)}>0</Zero>
+        <Zero onClick={() => addNum('0', operation, setOperation, setDisplay, setResult)}>0</Zero>
         <Operators>
           {operatorsArr.map((operator) => (
             <button onClick={() => addOperation(operator, operation, setOperation, setDisplay, setResult, calculate)}>{operator}</button>
@@ -44,7 +44,7 @@ function App() {
           <button onClick={() => printResult(result, operation, setOperation, setResult, calculate)}>=</button>
         </Operators>
 
-        <Dot onClick={() => addDot('.', operation, setOperation)}>.</Dot>
+        <Dot onClick={() => addDot('.', operation, setOperation, setDisplay)}>.</Dot>
         <AC onClick={() => reset(setOperation, setDisplay, setResult, initialState)}>AC</AC>
       </Calculator>
     </Container>

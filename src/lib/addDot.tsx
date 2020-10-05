@@ -1,6 +1,6 @@
 import State from '../types/State';
 
-export default function addDot(dot: string, operation: State, setOperation: Function) {
+export default function addDot(dot: string, operation: State, setOperation: Function, setDisplay: Function) {
   //prevent user from using dot if there's
   if (operation.input === null) return;
 
@@ -13,5 +13,7 @@ export default function addDot(dot: string, operation: State, setOperation: Func
       ...prevState,
       input: prevState.input + dot,
     }));
+
+    setDisplay(operation.input + dot);
   }
 }
